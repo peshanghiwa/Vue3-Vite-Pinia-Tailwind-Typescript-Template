@@ -1,5 +1,9 @@
 import { createApp } from "vue";
-import "./index.css";
 import App from "./App.vue";
+import "./index.css";
+import injectUtilities from "./components/utility";
 
-createApp(App).mount("#app");
+const vueApp = createApp(App);
+injectUtilities(vueApp);
+
+vueApp.mount("#app");
