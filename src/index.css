@@ -23,3 +23,23 @@
   @apply bg-white text-black-300 rounded focus:outline-none
     border-2 border-black-300;
 }
+
+/* Spinner */
+.spinner {
+  @apply border-solid rounded-full animate-spin mx-auto;
+}
+.spinner-primary {
+  @apply border-white;
+}
+.spinner-secondary {
+  @apply border-black-900;
+}
+.spinner-lg {
+  @apply w-[40px] h-[40px] border-[4px];
+}
+.spinner-md {
+  @apply w-[30px] h-[30px] border-[3px];
+}
+.spinner-sm {
+  @apply w-[20px] h-[20px] border-[2px];
+}
