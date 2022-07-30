@@ -47,3 +47,25 @@
 .input-primary {
   @apply border-[1px] border-black-900 text-lg px-5 rounded focus:outline-none focus:ring-2 focus:ring-black-300 transition duration-150 ease-in-out;
 }
+
+/* Dropdown (Overriding the library style) */
+.v-select {
+  @apply border-[1px] border-black-900 text-lg rounded
+  focus-within:outline-none focus-within:ring-2 focus-within:ring-black-300 transition duration-150 ease-in-out;
+}
+.vs__dropdown-toggle {
+  @apply h-[100%];
+}
+
+.vs__search::placeholder {
+  @apply opacity-40;
+}
+
+.vs__selected {
+  @apply h-[90%] w-[100%] mb-2 pb-2;
+}
+
+.vs__clear,
+.vs__open-indicator {
+  @apply fill-black-900 !important;
+}
