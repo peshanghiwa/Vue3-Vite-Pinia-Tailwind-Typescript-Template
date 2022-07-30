@@ -69,3 +69,8 @@
 .vs__open-indicator {
   @apply fill-black-900 !important;
 }
+
+/* Main Layout */
+.main-layout {
+  min-height: calc(100vh - 90px);
+}

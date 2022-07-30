@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="flex justify-center items-center h-[100vh] flex-col gap-8">
+  <div class="main-layout | flex justify-center items-center flex-col gap-8">
     <input
       class="input-primary | w-[90%] h-[60px] sm:w-[300px]"
       type="text"

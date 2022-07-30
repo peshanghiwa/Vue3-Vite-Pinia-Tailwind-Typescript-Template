@@ -45,7 +45,7 @@ defineProps({
     @click="emit('onClick')"
   >
     <p-spinner v-if="loading" size="md" :type="type" />
-    <slot v-else></slot>
+    <slot v-else />
   </button>
 </template>
 
