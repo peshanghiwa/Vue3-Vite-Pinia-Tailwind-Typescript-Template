@@ -1,10 +1,12 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import "./index.css";
+import "./assets/index.css";
+import router from "./router";
 import injectUtilities from "./components/utility";
 import injectVueSelect from "./plugins/vue-select";
 
 const vueApp = createApp(App);
+vueApp.use(router);
 injectUtilities(vueApp);
 injectVueSelect(vueApp);
 
