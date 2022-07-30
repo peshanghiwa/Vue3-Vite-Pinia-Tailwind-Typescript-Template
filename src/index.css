@@ -37,8 +37,13 @@
   @apply w-[40px] h-[40px] border-[4px];
 }
 .spinner-md {
-  @apply w-[30px] h-[30px] border-[3px];
+  @apply w-[25px] h-[25px] border-[3px];
 }
 .spinner-sm {
   @apply w-[20px] h-[20px] border-[2px];
+}
+
+/* Form Input */
+.input-primary {
+  @apply border-[1px] border-black-900 text-lg px-5 rounded focus:outline-none focus:ring-2 focus:ring-black-300 transition duration-150 ease-in-out;
 }

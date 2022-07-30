@@ -40,7 +40,7 @@ defineProps({
 
 <template>
   <button
-    :class="[`btn-${type}`]"
+    :class="['btn', `btn-${type}`]"
     :disabled="disabled || loading"
     @click="emit('onClick')"
   >
