@@ -16,11 +16,11 @@
 }
 .btn-secondary {
   @apply bg-white text-black-900 hover:text-white hover:bg-black-900 active:bg-black-500
-    focus:ring-black-300 border-2 border-black-900;
+    focus:ring-black-300 border-[1px] border-black-900;
 }
 .btn-secondary[disabled] {
   @apply bg-white text-black-300
-    border-2 border-black-300;
+    border-[1px] border-black-300;
 }
 
 /* Spinner */
