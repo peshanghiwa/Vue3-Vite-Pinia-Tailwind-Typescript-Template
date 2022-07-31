@@ -1,11 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+
+const navbarDropdownVisible = ref(false);
+</script>
 
 <template>
-  <head class="h-[90px] block border-black-900 border-b-[1px] px-[60px]">
+  <head
+    class="h-[90px] block border-black-900 border-b-[1px] px-[15px] md:px-[60px]"
+  >
     <nav class="w-full h-full flex justify-between items-center">
-      <ul class="flex gap-10 text-lg">
+      <ul class="hidden md:flex gap-10 text-lg">
         <li>
-          <router-link to="/register-name">Country Profile</router-link>
+          <router-link to="/country-profile">Country Profile</router-link>
         </li>
         <li>
           <router-link to="/select-country">University List</router-link>
@@ -13,8 +19,60 @@
       </ul>
       <section class="flex items-center gap-10 text-lg">
         <p>Hello Mr. Username</p>
-        <p-button class="w-[150px] h-[40px]" type="primary">Logout</p-button>
+        <p-button class="hidden md:block w-[150px] h-[40px]" type="primary"
+          >Logout</p-button
+        >
       </section>
+      <button
+        class="md:hidden"
+        v-if="!navbarDropdownVisible"
+        @click="navbarDropdownVisible = true"
+      >
+        <img
+          src="../../assets/SVGs/burger-menu.svg"
+          class="h-[20px]"
+          alt="Burger Menu"
+        />
+      </button>
+      <button
+        class="md:hidden"
+        v-if="navbarDropdownVisible"
+        @click="navbarDropdownVisible = false"
+      >
+        <img
+          src="../../assets/SVGs/close.svg"
+          class="h-[20px]"
+          alt="Burger Menu"
+        />
+      </button>
+      <transition name="fadedown">
+        <ul
+          v-if="navbarDropdownVisible"
+          class="flex items-center flex-col absolute top-[70px] right-[15px] bg-black-900 text-white rounded z-50"
+        >
+          <li>
+            <router-link
+              to="/country-profile"
+              class="block py-[15px] px-[70px] hover:bg-black-700 transiton-all duration-300 ease-in-out"
+              >Country Profile</router-link
+            >
+          </li>
+          <li>
+            <router-link
+              to="/select-country"
+              class="block py-[15px] px-[70px] hover:bg-black-700 transiton-all duration-300 ease-in-out"
+              >University List</router-link
+            >
+          </li>
+          <li>
+            <button
+              class="block py-[15px] px-[100px] hover:bg-black-700 transiton-all duration-300 ease-in-out"
+            >
+              Logout
+            </button>
+          </li>
+        </ul>
+      </transition>
     </nav>
   </head>
 </template>

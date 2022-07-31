@@ -74,3 +74,16 @@
 .main-layout {
   min-height: calc(100vh - 90px);
 }
+
+/* Vue Transition (Fade Down) */
+.fadedown-enter-active,
+.fadedown-leave-active {
+  transition: all 0.2s ease;
+  transform: translateY(0px);
+}
+
+.fadedown-enter-from,
+.fadedown-leave-to {
+  transform: translateY(-10px);
+  opacity: 0;
+}
