@@ -1,16 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Header from "./components/layout/header.vue";
+import Footer from "./components/layout/footer.vue";
+</script>
 
 <template>
-  <div class="container">
-    <button class="btn-primary text-white">Hello world!</button>
+  <div>
+    <Header />
+    <router-view />
+    <Footer />
   </div>
 </template>
-
-<style scoped>
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-</style>
