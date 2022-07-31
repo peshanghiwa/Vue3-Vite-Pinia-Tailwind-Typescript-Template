@@ -14,7 +14,7 @@ const navbarDropdownVisible = ref(false);
           <router-link to="/country-profile">Country Profile</router-link>
         </li>
         <li>
-          <router-link to="/select-country">University List</router-link>
+          <router-link to="/university-list">University List</router-link>
         </li>
       </ul>
       <section class="flex items-center gap-10 text-lg">
