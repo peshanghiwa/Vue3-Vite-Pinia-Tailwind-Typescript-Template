@@ -4,8 +4,8 @@ import { Name, Gender } from "../types/profile";
 
 export default defineStore("profile", () => {
   // State Properties
-  const name = ref(null) as Ref<Name>;
-  const gender = ref(null) as Ref<Gender>;
+  const name: Ref<Name> = ref(null);
+  const gender: Ref<Gender> = ref(null);
 
   // Getters
   const userName = computed(() => name.value);

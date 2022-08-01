@@ -4,13 +4,16 @@ import { Country } from "../types/info";
 
 export default defineStore("info", () => {
   // State Properties
-  const country = ref(null) as Ref<Country>;
+  const countries: Ref<Country[]> = ref([]);
+  const country: Ref<Country> = ref(null);
 
   // Getters
+  const countriesList = computed(() => countries.value);
   const selectedCountry = computed(() => country.value);
 
   // Actions
+  const setCountries = (value: Country[]) => (countries.value = value);
   const setCountry = (value: Country) => (country.value = value);
 
-  return { selectedCountry, setCountry };
+  return { countriesList, selectedCountry, setCountries, setCountry };
 });
