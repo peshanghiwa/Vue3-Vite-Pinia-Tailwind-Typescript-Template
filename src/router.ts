@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import CountryProfile from "./pages/country-profile.vue";
+import NotFound from "./pages/not-found.vue";
 import RegisterName from "./pages/register-name.vue";
 import SelectCountry from "./pages/select-country.vue";
-import universityList from "./pages/university-list.vue";
+import UniversityList from "./pages/university-list.vue";
 
 const routes = [
+  // We don't have a specific home page, so we redirect home page to the register name page
+  { path: "/", redirect: "/register-name" },
   { path: "/country-profile", component: CountryProfile },
   {
     path: "/register-name",
@@ -17,7 +20,11 @@ const routes = [
   },
   {
     path: "/university-list",
-    component: universityList,
+    component: UniversityList,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    component: NotFound,
   },
 ];
 
