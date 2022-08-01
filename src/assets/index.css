@@ -48,6 +48,10 @@
   @apply border-[1px] border-black-900 text-lg px-5 rounded focus:outline-none focus:ring-2 focus:ring-black-300 transition duration-150 ease-in-out;
 }
 
+.input-primary[invalid="true"] {
+  @apply border-red-900 focus:ring-2 focus:ring-red-500;
+}
+
 /* Dropdown (Overriding the library style) */
 .v-select {
   @apply border-[1px] border-black-900 text-lg rounded
