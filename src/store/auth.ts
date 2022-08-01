@@ -9,11 +9,11 @@ export const useAuthStore = defineStore("auth", () => {
    * @param {*} function - becomes action
    */
 
-  const loggedIn = ref(false);
-  const getAuthState = computed(() => loggedIn.value);
+  const loggedIn = ref(true);
+  const isLoggedIn = computed(() => loggedIn.value);
 
   const login = () => (loggedIn.value = true);
   const logout = () => (loggedIn.value = false);
 
-  return { getAuthState, login, logout };
+  return { isLoggedIn, login, logout };
 });
