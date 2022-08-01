@@ -4,7 +4,7 @@ import {
   RouteLocationNormalized,
   NavigationGuardNext,
 } from "vue-router";
-import { useAuthStore } from "./store/auth";
+import useAuthStore from "./store/auth";
 import CountryProfile from "./pages/country-profile.vue";
 import NotFound from "./pages/not-found.vue";
 import RegisterName from "./pages/register-name.vue";

@@ -1,4 +1,6 @@
 <script setup lang="ts"></script>
+import useAuthStore from "../store/auth";
+const { isLoggedIn } = useAuthStore();
 
 <template>
   <main

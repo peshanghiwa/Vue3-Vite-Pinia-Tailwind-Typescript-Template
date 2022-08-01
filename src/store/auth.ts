@@ -1,7 +1,7 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
-export const useAuthStore = defineStore("auth", () => {
+export default defineStore("auth", () => {
   // State Properties
   const loggedIn = ref(false);
 

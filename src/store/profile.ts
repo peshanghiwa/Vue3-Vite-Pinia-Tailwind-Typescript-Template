@@ -2,7 +2,7 @@ import { Ref, ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { Name, Gender } from "../types/profile";
 
-export const useProfileStore = defineStore("profile", () => {
+export default defineStore("profile", () => {
   // State Properties
   const name = ref(null) as Ref<Name>;
   const gender = ref(null) as Ref<Gender>;

@@ -2,7 +2,7 @@ import { Ref, ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { Country } from "../types/info";
 
-export const useInfoStore = defineStore("info", () => {
+export default defineStore("info", () => {
   // State Properties
   const country = ref(null) as Ref<Country>;
 
