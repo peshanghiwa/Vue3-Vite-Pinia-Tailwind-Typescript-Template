@@ -2,16 +2,13 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore("auth", () => {
-  /**
-   * Corresponding pinia components to composition api properties
-   * @param {*} ref - becomes state properties
-   * @param {*} computed - becomes getter
-   * @param {*} function - becomes action
-   */
+  // State Properties
+  const loggedIn = ref(false);
 
-  const loggedIn = ref(true);
+  // Getters
   const isLoggedIn = computed(() => loggedIn.value);
 
+  // Actions
   const login = () => (loggedIn.value = true);
   const logout = () => (loggedIn.value = false);
 
