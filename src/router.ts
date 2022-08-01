@@ -17,7 +17,7 @@ const authGuard = (
   next: NavigationGuardNext
 ) => {
   const { isLoggedIn } = useAuthStore();
-  if (isLoggedIn) next();
+  if (to.meta.requiresAuth && isLoggedIn) next();
   else next("/register-name");
 };
 
@@ -36,30 +36,37 @@ const nonAuthGuard = (
 
 const routes = [
   // We don't have a specific home page, so we always redirect home page to the register name page
-  { path: "/", redirect: "/register-name" },
+  { path: "/", redirect: "/register-name", name: "home" },
   {
     path: "/register-name",
     component: RegisterName,
-    beforeEnter: nonAuthGuard,
+    beforeEnter: [nonAuthGuard],
+    name: "register-name",
   },
   {
     path: "/select-country",
     component: SelectCountry,
-    beforeEnter: nonAuthGuard,
+    beforeEnter: [nonAuthGuard],
+    name: "select-country",
   },
   {
     path: "/university-list",
     component: UniversityList,
-    beforeEnter: authGuard,
+    beforeEnter: [authGuard],
+    meta: { requiresAuth: true },
+    name: "university-list",
   },
   {
     path: "/country-profile",
     component: CountryProfile,
-    beforeEnter: authGuard,
+    beforeEnter: [authGuard],
+    meta: { requiresAuth: true },
+    name: "country-profile",
   },
   {
     path: "/:pathMatch(.*)*",
     component: NotFound,
+    name: "not-found",
   },
 ];
 
