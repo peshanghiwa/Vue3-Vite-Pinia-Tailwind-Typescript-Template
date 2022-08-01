@@ -25,9 +25,6 @@ const props = defineProps({
     default: 1,
   },
 });
-
-const { columns, dataSource, itemsPerPage, page } = toRefs(props);
-
 const {
   tableColumnValues,
   backButtonDisabled,
@@ -36,7 +33,7 @@ const {
   decrementPage,
   currentPage,
   totalPages,
-} = pTable(columns.value, dataSource.value, itemsPerPage.value, page.value);
+} = pTable(props.columns, props.dataSource, props.itemsPerPage, props.page);
 </script>
 
 <template>

@@ -19,10 +19,6 @@ export default (
   const incrementPage = () => currentPage.value++;
   const decrementPage = () => currentPage.value--;
 
-  console.log(
-    currentPage.value * itemsPerPage.value >= dataSource.value.length
-  );
-
   const backButtonDisabled = computed(() => currentPage.value === 1);
   const nextButtonDisabled = computed(
     () => currentPage.value * itemsPerPage.value >= dataSource.value.length
@@ -54,6 +50,7 @@ export default (
         .map(([_, value]) => value);
     });
 
+    // Determine the number of columns in the table
     const start = (currentPage.value - 1) * itemsPerPage.value;
     const end = start + itemsPerPage.value;
     return allTableColumnValues.slice(start, end);
