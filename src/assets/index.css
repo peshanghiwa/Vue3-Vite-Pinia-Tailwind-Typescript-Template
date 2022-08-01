@@ -57,6 +57,11 @@
   @apply border-[1px] border-black-900 text-lg rounded
   focus-within:outline-none focus-within:ring-2 focus-within:ring-black-300 transition duration-150 ease-in-out;
 }
+
+.v-select[invalid="true"] {
+  @apply border-red-900 focus:ring-2 focus:ring-red-500;
+}
+
 .vs__dropdown-toggle {
   @apply h-[100%];
 }
