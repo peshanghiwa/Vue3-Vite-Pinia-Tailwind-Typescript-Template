@@ -72,7 +72,7 @@
 
 /* Main Layout */
 .main-layout {
-  min-height: calc(100vh - 90px);
+  min-height: calc(100vh - 100px);
 }
 
 /* Vue Transition (Fade Down) */
