@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { toRefs, PropType } from "vue";
+import { toRefs, PropType, watch, ref } from "vue";
 import { Columns, DataSource } from "../../types/p-table";
-import pTable from "../../composables/p-table";
+// import pTable from "../../composables/p-table";
+import { computed } from "@vue/reactivity";
 
 const props = defineProps({
   columns: {
@@ -20,24 +21,72 @@ const props = defineProps({
     type: Number,
     default: 10,
   },
-  page: {
+  currentPage: {
     type: Number,
     default: 1,
   },
+  noDataMessage: {
+    type: String,
+    default: "No data exits",
+  },
+  error: {
+    type: Boolean,
+    default: false,
+  },
+  errorMessage: {
+    type: String,
+    default: "Error occurred",
+  },
 });
-const {
-  tableColumnValues,
-  backButtonDisabled,
-  nextButtonDisabled,
-  incrementPage,
-  decrementPage,
-  currentPage,
-  totalPages,
-} = pTable(props.columns, props.dataSource, props.itemsPerPage, props.page);
+
+const { currentPage, columns, dataSource, itemsPerPage } = toRefs(props);
+const mutableCurrentPage = ref(currentPage.value);
+
+const incrementPage = () => mutableCurrentPage.value++;
+const decrementPage = () => mutableCurrentPage.value--;
+
+const backButtonDisabled = computed(() => mutableCurrentPage.value === 1);
+const nextButtonDisabled = computed(
+  () => mutableCurrentPage.value * itemsPerPage.value >= dataSource.value.length
+);
+
+const totalPages = computed(() =>
+  Math.ceil(dataSource.value.length / itemsPerPage.value)
+);
+
+const tableColumnValues = computed(() => {
+  // Remove all the extra data from the dataSource that is not in the columns
+  dataSource.value.forEach((row) => {
+    Object.keys(row).forEach((key) => {
+      if (!columns.value.find((column) => column.id === key)) {
+        delete row[key];
+      }
+    });
+  });
+
+  // Sort the dataSource by the column id and return only their values
+  const allTableColumnValues = dataSource.value.map((row) => {
+    return Object.entries(row)
+      .sort((a, b) => {
+        return (
+          columns.value.findIndex((column) => column.id === a[0]) -
+          columns.value.findIndex((column) => column.id === b[0])
+        );
+      })
+      .map(([_, value]) => value);
+  });
+
+  // Determine the number of columns in the table
+  const start = (mutableCurrentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return allTableColumnValues.slice(start, end);
+});
 </script>
 
 <template>
   <div class="flex flex-col items-center">
+    <p>columns are: {{ columns.length }}</p>
+    <p>dataSource are: {{ dataSource.length }}</p>
     <table
       class="bg-black-100 w-full rounded border-[1px] border-black-900 flex flex-col"
     >
@@ -51,7 +100,23 @@ const {
         </th>
       </tr>
       <tr
-        v-if="!loading"
+        v-if="loading"
+        class="text-center h-[60px] border-b-[1px] border-b-black-900 hover:bg-black-200 w-full flex items-center"
+      >
+        <td class="block w-full">
+          <p-spinner size="lg" type="secondary" />
+        </td>
+      </tr>
+      <tr
+        v-else-if="error"
+        class="text-center h-[60px] border-b-[1px] border-b-black-900 hover:bg-black-200 w-full flex items-center"
+      >
+        <td class="block w-full">
+          {{ errorMessage }}
+        </td>
+      </tr>
+      <tr
+        v-else-if="tableColumnValues.length > 0"
         v-for="(columns, index) in tableColumnValues"
         :key="index"
         class="text-center h-[60px] border-b-[1px] border-b-black-900 hover:bg-black-200 w-full flex items-center"
@@ -65,11 +130,11 @@ const {
         </td>
       </tr>
       <tr
-        v-else
+        v-else-if="dataSource.length === 0"
         class="text-center h-[60px] border-b-[1px] border-b-black-900 hover:bg-black-200 w-full flex items-center"
       >
         <td class="block w-full">
-          <p-spinner size="lg" type="secondary" />
+          {{ noDataMessage }}
         </td>
       </tr>
     </table>
@@ -89,6 +154,6 @@ const {
         >Next</p-button
       >
     </div>
-    <div class="mt-2">page: {{ currentPage }} / {{ totalPages }}</div>
+    <div class="mt-2">page: {{ mutableCurrentPage }} / {{ totalPages }}</div>
   </div>
 </template>
