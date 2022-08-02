@@ -11,15 +11,17 @@ const { login } = useAuthStore();
 const data = reactive({
   name: "",
   inputInvalid: false,
+  loading: false,
 });
 
-const { name, inputInvalid } = toRefs(data);
+const { name, inputInvalid, loading } = toRefs(data);
 
 const onLogin = async () => {
   if (!name.value) {
     inputInvalid.value = true;
     return;
   }
+  loading.value = true;
   setName(name.value);
   await fetchAndSetGender(name.value);
 
@@ -27,6 +29,8 @@ const onLogin = async () => {
 
   login();
   router.push("/country-profile");
+  inputInvalid.value = false;
+  loading.value = false;
 };
 </script>
 
@@ -43,6 +47,7 @@ const onLogin = async () => {
     <p-button
       @click="onLogin"
       class="w-[90%] h-[60px] sm:w-[300px]"
+      :loading="loading"
       type="primary"
       >Login</p-button
     >
