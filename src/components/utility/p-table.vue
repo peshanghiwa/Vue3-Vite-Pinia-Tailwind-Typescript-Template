@@ -85,8 +85,6 @@ const tableColumnValues = computed(() => {
 
 <template>
   <div class="flex flex-col items-center">
-    <p>columns are: {{ columns.length }}</p>
-    <p>dataSource are: {{ dataSource.length }}</p>
     <table
       class="bg-black-100 w-full rounded border-[1px] border-black-900 flex flex-col"
     >
