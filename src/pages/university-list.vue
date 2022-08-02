@@ -1,125 +1,56 @@
 <script setup lang="ts">
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, computed, onMounted } from "vue";
+import { storeToRefs } from "pinia";
+import useInfoStore from "../store/info";
+import { getUniversity } from "../api/countriesApi";
+import { University } from "../types/info";
+const { setCountry } = useInfoStore();
+const { countriesList, selectedCountry } = storeToRefs(useInfoStore());
+const selectedCountryClone = selectedCountry.value;
 
 const data = reactive({
-  country: null,
+  universities: null as University[] | null,
+  loading: false,
+  columns: [
+    {
+      name: "University Name",
+      id: "universityName",
+    },
+    {
+      name: "Website",
+      id: "website",
+    },
+  ],
+  dataSource: [] as { universityName: string; website: string }[],
 });
-const { country } = toRefs(data);
-const options = ["Afghanistan", "Albania", "Algeria", "Andorra"];
+const { universities, loading, columns, dataSource } = toRefs(data);
 
-const columns = [
-  {
-    name: "Country",
-    id: "country",
-  },
-  {
-    name: "Capital",
-    id: "capital",
-  },
-];
+const onSetCountry = async (newCountry: string) => {
+  loading.value = true;
+  universities.value = await getUniversity(newCountry);
+  if (universities.value) dataSource.value = setDataSource(universities.value);
+  setCountry(newCountry);
+  loading.value = false;
+};
 
-const dataSource = [
-  {
-    country: "Afghanistan",
-    capital: "Kabul",
-  },
-  {
-    country: "Albania",
-    capital: "Tirana",
-  },
-  {
-    country: "Algeria",
-    capital: "Algiers",
-  },
-  {
-    country: "Andorra",
-    capital: "Andorra la Vella",
-  },
-  {
-    country: "Angola",
-    capital: "Luanda",
-  },
-  {
-    country: "Antigua and Barbuda",
-    capital: "Saint John's",
-  },
-  {
-    country: "Argentina",
-    capital: "Buenos Aires",
-  },
-  {
-    country: "Armenia",
-    capital: "Yerevan",
-  },
-  {
-    country: "Australia",
-    capital: "Canberra",
-  },
-  {
-    country: "Austria",
-    capital: "Vienna",
-  },
-  {
-    country: "Azerbaijan",
-    capital: "Baku",
-  },
-  {
-    country: "Bahamas",
-    capital: "Nassau",
-  },
-  {
-    country: "Bahrain",
-    capital: "Manama",
-  },
-  {
-    country: "Bangladesh",
-    capital: "Dhaka",
-  },
-  {
-    country: "Barbados",
-    capital: "Bridgetown",
-  },
-  {
-    country: "Belarus",
-    capital: "Minsk",
-  },
-  {
-    country: "Belgium",
-    capital: "Brussels",
-  },
-  {
-    country: "Belize",
-    capital: "Belmopan",
-  },
-  {
-    country: "Benin",
-    capital: "Porto-Novo",
-  },
-  {
-    country: "Bhutan",
-    capital: "Thimphu",
-  },
-  {
-    country: "Bolivia",
-    capital: "Sucre",
-  },
-  {
-    country: "Bosnia and Herzegovina",
-    capital: "Sarajevo",
-  },
-  {
-    country: "Botswana",
-    capital: "Gaborone",
-  },
-  {
-    country: "Brazil",
-    capital: "Brasilia",
-  },
-  {
-    country: "Brunei",
-    capital: "Bandar Seri Begawan",
-  },
-];
+const setDataSource = (universities: University[]) => {
+  return universities.map((university) => {
+    return {
+      universityName: university.name,
+      website: university.web_pages[0],
+    };
+  });
+};
+
+onMounted(async () => {
+  if (selectedCountry.value) {
+    loading.value = true;
+    universities.value = await getUniversity(selectedCountry.value);
+    if (universities.value)
+      dataSource.value = setDataSource(universities.value);
+    loading.value = false;
+  }
+});
 </script>
 
 <template>
@@ -131,8 +62,9 @@ const dataSource = [
     >
       <h1>Universities in {Country}</h1>
       <v-select
-        :options="options"
-        v-model="country"
+        :options="countriesList"
+        @option:selected="onSetCountry"
+        v-model="selectedCountryClone"
         class="h-[60px] w-full md:w-[35%]"
         placeholder="Select Country"
       />
@@ -141,9 +73,9 @@ const dataSource = [
       <p-table
         :columns="columns"
         :dataSource="dataSource"
-        :loading="false"
-        :itemsPerPage="5"
-        :page="1"
+        :loading="loading"
+        :itemsPerPage="10"
+        :currentPage="1"
       />
     </div>
   </main>

@@ -34,3 +34,14 @@ export const getCountry = async (country: string) => {
     languages: Object.values(data.languages).join(", "),
   };
 };
+
+export const getUniversity = async (country: string) => {
+  const { data } = await axiosInstance.get(
+    `http://universities.hipolabs.com/search?country=${country}`
+  );
+
+  return data.map((university: any) => ({
+    name: university.name,
+    web_pages: university.web_pages,
+  }));
+};
