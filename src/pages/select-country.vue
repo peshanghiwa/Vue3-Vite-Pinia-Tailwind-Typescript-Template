@@ -1,43 +1,42 @@
 <script setup lang="ts">
+/* --- Imports --- */
 import { onMounted, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
-import { getAllCountries } from "../api/countriesApi";
 import useInfoStore from "../store/info";
 import useProfileStore from "../store/profile";
 import useAuthStore from "../store/auth";
-const router = useRouter();
+import { getAllCountries } from "../api/countriesApi";
 
-const {
-  fetch: fetchCountries,
-  error,
-  data: countries,
-  loading,
-} = getAllCountries();
+/* --- API requests --- */
+const { fetch, error, data: countries, loading } = getAllCountries();
 
+/* --- Stores --- */
 const { setCountry } = useInfoStore();
 const { userName } = useProfileStore();
 const { login } = useAuthStore();
 
+/* --- States --- */
+const router = useRouter();
 const data = reactive({
   country: null,
   inputInvalid: false,
 });
 const { country, inputInvalid } = toRefs(data);
 
+/* --- Methods --- */
 const proceed = () => {
   if (!country.value) {
     inputInvalid.value = true;
     return;
   }
   setCountry(country.value);
-
   if (!userName) return router.push("/register-name");
-
   login();
   router.push("/country-profile");
 };
 
-onMounted(async () => await fetchCountries());
+/* --- hooks --- */
+onMounted(async () => await fetch());
 </script>
 
 <template>

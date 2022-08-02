@@ -1,9 +1,10 @@
 <script setup lang="ts">
+/* --- Imports --- */
 import { toRefs, PropType, watch, ref } from "vue";
 import { Columns, DataSource } from "../../types/p-table";
-// import pTable from "../../composables/p-table";
 import { computed } from "@vue/reactivity";
 
+/* --- Props --- */
 const props = defineProps({
   columns: {
     type: Array as PropType<Columns>,
@@ -39,21 +40,16 @@ const props = defineProps({
   },
 });
 
+/* --- States --- */
 const { currentPage, columns, dataSource, itemsPerPage } = toRefs(props);
 const mutableCurrentPage = ref(currentPage.value);
-
-const incrementPage = () => mutableCurrentPage.value++;
-const decrementPage = () => mutableCurrentPage.value--;
-
 const backButtonDisabled = computed(() => mutableCurrentPage.value === 1);
 const nextButtonDisabled = computed(
   () => mutableCurrentPage.value * itemsPerPage.value >= dataSource.value.length
 );
-
 const totalPages = computed(() =>
   Math.ceil(dataSource.value.length / itemsPerPage.value)
 );
-
 const tableColumnValues = computed(() => {
   // Remove all the extra data from the dataSource that is not in the columns
   dataSource.value.forEach((row) => {
@@ -81,6 +77,10 @@ const tableColumnValues = computed(() => {
   const end = start + itemsPerPage.value;
   return allTableColumnValues.slice(start, end);
 });
+
+/* --- Methods --- */
+const incrementPage = () => mutableCurrentPage.value++;
+const decrementPage = () => mutableCurrentPage.value--;
 </script>
 
 <template>

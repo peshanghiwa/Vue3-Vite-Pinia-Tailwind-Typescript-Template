@@ -1,15 +1,22 @@
 <script setup lang="ts">
+/* --- Imports --- */
 import { onMounted } from "vue";
 import useInfoStore from "../store/info";
 import { storeToRefs } from "pinia";
 import { getCountry } from "../api/countriesApi";
+
+/* --- API requests --- */
 const { fetch: fetchCountry, data: country, loading, error } = getCountry();
+
+/* --- Stores --- */
 const { countriesList, selectedCountry } = storeToRefs(useInfoStore());
 const selectedCountryClone = selectedCountry.value;
 
+/* --- Methods --- */
 const onSetCountry = async (newCountry: string) =>
   await fetchCountry(newCountry);
 
+/* --- hooks --- */
 onMounted(async () => {
   if (selectedCountry.value) {
     await fetchCountry(selectedCountry.value);

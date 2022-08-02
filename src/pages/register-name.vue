@@ -1,22 +1,28 @@
 <script setup lang="ts">
-import { reactive, toRefs } from "vue";
+/* --- Imports --- */
 import router from "../router.js";
+import { reactive, toRefs } from "vue";
 import useProfileStore from "../store/profile";
 import useInfoStore from "../store/info";
 import useAuthStore from "../store/auth";
 import { requestGender } from "../api/profileApi";
+
+/* --- API requests --- */
+const { fetch: fetchGender, loading, error } = requestGender();
+
+/* --- Stores --- */
 const { setName } = useProfileStore();
 const { selectedCountry } = useInfoStore();
 const { login } = useAuthStore();
-const { fetch: fetchGender, loading, error } = requestGender();
 
+/* --- States --- */
 const data = reactive({
   name: "",
   inputInvalid: false,
 });
-
 const { name, inputInvalid } = toRefs(data);
 
+/* --- Methods --- */
 const onLogin = async () => {
   if (!name.value) {
     inputInvalid.value = true;

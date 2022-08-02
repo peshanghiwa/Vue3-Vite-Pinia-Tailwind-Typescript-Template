@@ -1,9 +1,11 @@
 <script setup lang="ts">
+/* --- Imports --- */
 import { reactive, toRefs, computed, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import useInfoStore from "../store/info";
 import { getUniversities } from "../api/countriesApi";
-const { setCountry } = useInfoStore();
+
+/* --- API requests --- */
 
 const {
   fetch: fetchUniversities,
@@ -11,9 +13,13 @@ const {
   error,
   loading,
 } = getUniversities();
+
+/* --- Stores --- */
+const { setCountry } = useInfoStore();
 const { countriesList, selectedCountry } = storeToRefs(useInfoStore());
 const selectedCountryClone = selectedCountry.value;
 
+/* --- States --- */
 const data = reactive({
   columns: [
     {
@@ -28,11 +34,13 @@ const data = reactive({
 });
 const { columns } = toRefs(data);
 
+/* --- Methods --- */
 const onSetCountry = async (newCountry: string) => {
   await fetchUniversities(newCountry);
   setCountry(newCountry);
 };
 
+/* --- hooks --- */
 onMounted(async () => {
   if (selectedCountry.value) {
     await fetchUniversities(selectedCountry.value);
