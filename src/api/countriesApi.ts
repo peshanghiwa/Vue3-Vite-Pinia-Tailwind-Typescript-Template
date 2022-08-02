@@ -12,7 +12,8 @@ export const getAllCountries = () => {
     try {
       loading.value = true;
       const { countriesList, setCountries } = useInfoStore();
-      if (countriesList.length > 0) return countriesList;
+      if (countriesList.length > 0)
+        return (data.value = <Country[]>countriesList);
 
       const response = await axiosInstance.get(
         "http://restcountries.com/v3.1/all?fields=name"
