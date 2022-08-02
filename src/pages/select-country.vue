@@ -5,21 +5,24 @@ import { getAllCountries } from "../api/countriesApi";
 import useInfoStore from "../store/info";
 import useProfileStore from "../store/profile";
 import useAuthStore from "../store/auth";
-import { CountryRef } from "../types/info";
-
 const router = useRouter();
-const { setCountry, selectedCountry } = useInfoStore();
+
+const {
+  fetch: fetchCountries,
+  error,
+  data: countries,
+  loading,
+} = getAllCountries();
+
+const { setCountry } = useInfoStore();
 const { userName } = useProfileStore();
 const { login } = useAuthStore();
 
 const data = reactive({
-  placeholder: "Select country",
   country: null,
   inputInvalid: false,
-  options: [] as CountryRef[],
-  loading: false,
 });
-const { country, options, loading, placeholder, inputInvalid } = toRefs(data);
+const { country, inputInvalid } = toRefs(data);
 
 const proceed = () => {
   if (!country.value) {
@@ -34,27 +37,16 @@ const proceed = () => {
   router.push("/country-profile");
 };
 
-onMounted(async () => {
-  try {
-    loading.value = true;
-    const countries = await getAllCountries();
-    options.value = countries;
-    loading.value = false;
-  } catch (error) {
-    console.error(error);
-    placeholder.value = "An Error Occurred";
-    loading.value = false;
-  }
-});
+onMounted(async () => await fetchCountries());
 </script>
 
 <template>
   <div class="main-layout | flex justify-center items-center flex-col gap-8">
     <v-select
-      :options="options"
+      :options="countries ? countries : []"
       v-model="country"
       class="w-[90%] h-[60px] sm:w-[300px]"
-      :placeholder="placeholder"
+      :placeholder="error ? 'Error occured' : `Select Country`"
       :loading="loading"
       :invalid="inputInvalid"
     />

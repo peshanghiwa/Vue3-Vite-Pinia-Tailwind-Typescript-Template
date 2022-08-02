@@ -2,15 +2,19 @@
 import { reactive, toRefs, computed, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import useInfoStore from "../store/info";
-import { getUniversity } from "../api/countriesApi";
-import { University } from "../types/info";
+import { getUniversities } from "../api/countriesApi";
 const { setCountry } = useInfoStore();
+
+const {
+  fetch: fetchUniversities,
+  data: dataSource,
+  error,
+  loading,
+} = getUniversities();
 const { countriesList, selectedCountry } = storeToRefs(useInfoStore());
 const selectedCountryClone = selectedCountry.value;
 
 const data = reactive({
-  universities: null as University[] | null,
-  loading: false,
   columns: [
     {
       name: "University Name",
@@ -21,34 +25,17 @@ const data = reactive({
       id: "website",
     },
   ],
-  dataSource: [] as { universityName: string; website: string }[],
 });
-const { universities, loading, columns, dataSource } = toRefs(data);
+const { columns } = toRefs(data);
 
 const onSetCountry = async (newCountry: string) => {
-  loading.value = true;
-  universities.value = await getUniversity(newCountry);
-  if (universities.value) dataSource.value = setDataSource(universities.value);
+  await fetchUniversities(newCountry);
   setCountry(newCountry);
-  loading.value = false;
-};
-
-const setDataSource = (universities: University[]) => {
-  return universities.map((university) => {
-    return {
-      universityName: university.name,
-      website: university.web_pages[0],
-    };
-  });
 };
 
 onMounted(async () => {
   if (selectedCountry.value) {
-    loading.value = true;
-    universities.value = await getUniversity(selectedCountry.value);
-    if (universities.value)
-      dataSource.value = setDataSource(universities.value);
-    loading.value = false;
+    await fetchUniversities(selectedCountry.value);
   }
 });
 </script>
@@ -72,10 +59,11 @@ onMounted(async () => {
     <div class="w-[95%] md:w-[800px] xl:w-[1150px]">
       <p-table
         :columns="columns"
-        :dataSource="dataSource"
+        :dataSource="dataSource ? dataSource : []"
         :loading="loading"
         :itemsPerPage="10"
         :currentPage="1"
+        :error="error ? true : false"
       />
     </div>
   </main>

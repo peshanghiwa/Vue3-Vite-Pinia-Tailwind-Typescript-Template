@@ -1,31 +1,18 @@
 <script setup lang="ts">
-import { onMounted, reactive, toRefs } from "vue";
+import { onMounted } from "vue";
 import useInfoStore from "../store/info";
 import { storeToRefs } from "pinia";
 import { getCountry } from "../api/countriesApi";
-import { Country } from "../types/info";
-const { setCountry } = useInfoStore();
+const { fetch: fetchCountry, data: country, loading, error } = getCountry();
 const { countriesList, selectedCountry } = storeToRefs(useInfoStore());
 const selectedCountryClone = selectedCountry.value;
 
-const data = reactive({
-  country: null as Country,
-  loading: false,
-});
-const { country, loading } = toRefs(data);
-
-const onSetCountry = async (newCountry: string) => {
-  loading.value = true;
-  country.value = await getCountry(newCountry);
-  setCountry(newCountry);
-  loading.value = false;
-};
+const onSetCountry = async (newCountry: string) =>
+  await fetchCountry(newCountry);
 
 onMounted(async () => {
   if (selectedCountry.value) {
-    loading.value = true;
-    country.value = await getCountry(selectedCountry.value);
-    loading.value = false;
+    await fetchCountry(selectedCountry.value);
   }
 });
 </script>
@@ -43,7 +30,8 @@ onMounted(async () => {
         @option:selected="onSetCountry"
         v-model="selectedCountryClone"
         class="h-[60px] w-full md:w-[35%]"
-        placeholder="Select Country"
+        :placeholder="error ? 'Error occured' : `Select Country`"
+        :invalid="error"
       />
     </div>
     <div
