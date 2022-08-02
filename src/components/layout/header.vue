@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { storeToRefs } from "pinia";
+import { computed, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import useAuthStore from "../../store/auth";
 const { isLoggedIn } = useAuthStore();
+const { isLoggedIn } = storeToRefs(useAuthStore());
 const router = useRouter();
 
 const navbarDropdownVisible = ref(false);
