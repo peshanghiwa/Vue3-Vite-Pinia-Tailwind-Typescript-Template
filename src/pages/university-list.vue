@@ -6,7 +6,6 @@ import useInfoStore from "../store/info";
 import { getUniversities } from "../api/countriesApi";
 
 /* --- API requests --- */
-
 const {
   fetch: fetchUniversities,
   data: dataSource,
@@ -55,7 +54,7 @@ onMounted(async () => {
     <div
       class="w-[95%] md:w-[800px] xl:w-[1150px] flex flex-col md:flex-row justify-between items-center text-[35px] gap-6"
     >
-      <h1>Universities in {Country}</h1>
+      <h1>Universities in {{ selectedCountry }}</h1>
       <v-select
         :options="countriesList"
         @option:selected="onSetCountry"
