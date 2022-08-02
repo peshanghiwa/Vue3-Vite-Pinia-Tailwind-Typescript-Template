@@ -1,4 +1,4 @@
-import { reactive, ref, Ref, toRefs } from "vue";
+import { ref } from "vue";
 import axiosInstance from "../plugins/axios";
 import useInfoStore from "../store/info";
 import { Country, University } from "../types/info";

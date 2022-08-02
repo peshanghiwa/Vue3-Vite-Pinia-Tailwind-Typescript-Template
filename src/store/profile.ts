@@ -21,16 +21,16 @@ export default defineStore("profile", () => {
     gender.value = newGender;
   };
 
-  const fetchAndSetGender = async (newName: Name) => {
-    const newGender = await requestGender(newName);
-    gender.value = newGender;
-  };
+  // const fetchAndSetGender = async (newName: Name) => {
+  //   const newGender = await requestGender(newName);
+  //   gender.value = newGender;
+  // };
 
   return {
     userName,
     userGender,
     setName,
     setGender,
-    fetchAndSetGender,
+    // fetchAndSetGender,
   };
 });

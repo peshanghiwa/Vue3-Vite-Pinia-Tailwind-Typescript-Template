@@ -4,17 +4,18 @@ import router from "../router.js";
 import useProfileStore from "../store/profile";
 import useInfoStore from "../store/info";
 import useAuthStore from "../store/auth";
-const { setName, fetchAndSetGender, userName } = useProfileStore();
+import { requestGender } from "../api/profileApi";
+const { setName } = useProfileStore();
 const { selectedCountry } = useInfoStore();
 const { login } = useAuthStore();
+const { fetch: fetchGender, loading, error } = requestGender();
 
 const data = reactive({
   name: "",
   inputInvalid: false,
-  loading: false,
 });
 
-const { name, inputInvalid, loading } = toRefs(data);
+const { name, inputInvalid } = toRefs(data);
 
 const onLogin = async () => {
   if (!name.value) {
@@ -23,7 +24,7 @@ const onLogin = async () => {
   }
   loading.value = true;
   setName(name.value);
-  await fetchAndSetGender(name.value);
+  await fetchGender(name.value);
 
   if (!selectedCountry) return router.push("/select-country");
 
@@ -38,7 +39,7 @@ const onLogin = async () => {
   <div class="main-layout | flex justify-center items-center flex-col gap-8">
     <input
       v-model="name"
-      :invalid="inputInvalid"
+      :invalid="inputInvalid || error"
       @keyup.enter="onLogin"
       class="input-primary | w-[90%] h-[60px] sm:w-[300px]"
       type="text"
