@@ -52,7 +52,7 @@ onMounted(async () => {
     class="main-layout | flex items-center flex-col gap-[20px] md:gap-[70px] mt-[20px] md:mt-[100px]"
   >
     <div
-      class="w-[95%] md:w-[800px] xl:w-[1150px] flex flex-col md:flex-row justify-between items-center text-[35px] gap-6"
+      class="w-[95%] md:w-[800px] xl:w-[1150px] flex flex-col md:flex-row justify-between items-center text-[35px] gap-6 text-center"
     >
       <h1>Universities in {{ selectedCountry }}</h1>
       <v-select

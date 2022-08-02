@@ -40,7 +40,7 @@ onMounted(async () => await fetch());
 </script>
 
 <template>
-  <div class="main-layout | flex justify-center items-center flex-col gap-8">
+  <main class="main-layout | flex justify-center items-center flex-col gap-8">
     <v-select
       :options="countries ? countries : []"
       v-model="country"
@@ -55,5 +55,5 @@ onMounted(async () => await fetch());
       type="primary"
       >Proceed</p-button
     >
-  </div>
+  </main>
 </template>

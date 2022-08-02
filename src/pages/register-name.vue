@@ -42,7 +42,7 @@ const onLogin = async () => {
 </script>
 
 <template>
-  <div class="main-layout | flex justify-center items-center flex-col gap-8">
+  <main class="main-layout | flex justify-center items-center flex-col gap-8">
     <input
       v-model="name"
       :invalid="inputInvalid || error"
@@ -58,5 +58,5 @@ const onLogin = async () => {
       type="primary"
       >Login</p-button
     >
-  </div>
+  </main>
 </template>
