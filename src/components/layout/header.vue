@@ -3,11 +3,29 @@ import { storeToRefs } from "pinia";
 import { computed, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
 import useAuthStore from "../../store/auth";
-const { isLoggedIn } = useAuthStore();
+import useProfileStore from "../../store/profile";
+
 const { isLoggedIn } = storeToRefs(useAuthStore());
+const { userName, userGender } = storeToRefs(useProfileStore());
+const { logout } = useAuthStore();
 const router = useRouter();
 
-const navbarDropdownVisible = ref(false);
+const data = reactive({
+  navbarDropdownVisible: false,
+});
+
+const { navbarDropdownVisible } = toRefs(data);
+
+const honorific = computed(() => {
+  if (userGender.value === "male") return "Mr.";
+  if (userGender.value === "female") return "Mrs.";
+  return;
+});
+
+const onLogout = () => {
+  logout();
+  router.push("/register-name");
+};
 </script>
 
 <template>
@@ -42,8 +60,11 @@ const navbarDropdownVisible = ref(false);
         </li>
       </ul>
       <section class="flex items-center gap-10 text-lg">
-        <p>Hello Mr. Username</p>
-        <p-button class="hidden md:block w-[150px] h-[40px]" type="primary"
+        <p>Hello {{ honorific }} {{ userName }}</p>
+        <p-button
+          class="hidden md:block w-[150px] h-[40px]"
+          type="primary"
+          @click="onLogout"
           >Logout</p-button
         >
       </section>
@@ -90,6 +111,7 @@ const navbarDropdownVisible = ref(false);
           </li>
           <li>
             <button
+              @click="onLogout"
               class="block py-[15px] px-[100px] hover:bg-black-700 transiton-all duration-300 ease-in-out"
             >
               Logout
