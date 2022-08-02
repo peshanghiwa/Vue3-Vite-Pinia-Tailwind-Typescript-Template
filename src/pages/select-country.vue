@@ -4,10 +4,13 @@ import { useRouter } from "vue-router";
 import fetchCountries from "../api/fetchCountries";
 import useInfoStore from "../store/info";
 import useProfileStore from "../store/profile";
+import useAuthStore from "../store/auth";
 import { Country } from "../types/info";
+
 const router = useRouter();
-const { setCountry } = useInfoStore();
+const { setCountry, selectedCountry } = useInfoStore();
 const { userName } = useProfileStore();
+const { login } = useAuthStore();
 
 const data = reactive({
   placeholder: "Select country",
@@ -24,7 +27,11 @@ const proceed = () => {
     return;
   }
   setCountry(country.value);
+
   if (!userName) return router.push("/register-name");
+
+  login();
+  router.push("/country-profile");
 };
 
 onMounted(async () => {

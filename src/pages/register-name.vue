@@ -1,17 +1,48 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { reactive, toRefs } from "vue";
+import router from "../router.js";
 import useProfileStore from "../store/profile";
 import useInfoStore from "../store/info";
-const { setName } = useProfileStore();
+import useAuthStore from "../store/auth";
+const { setName, fetchAndSetGender, userName } = useProfileStore();
 const { selectedCountry } = useInfoStore();
+const { login } = useAuthStore();
+
+const data = reactive({
+  name: "",
+  inputInvalid: false,
+});
+
+const { name, inputInvalid } = toRefs(data);
+
+const onLogin = async () => {
+  if (!name.value) {
+    inputInvalid.value = true;
+    return;
+  }
+  setName(name.value);
+  await fetchAndSetGender(name.value);
+
+  if (!selectedCountry) return router.push("/select-country");
+
+  login();
+  router.push("/country-profile");
+};
+</script>
 
 <template>
   <div class="main-layout | flex justify-center items-center flex-col gap-8">
     <input
+      v-model="name"
+      :invalid="inputInvalid"
       class="input-primary | w-[90%] h-[60px] sm:w-[300px]"
       type="text"
       placeholder="Enter your name"
     />
-    <p-button class="w-[90%] h-[60px] sm:w-[300px]" type="primary"
+    <p-button
+      @click="onLogin"
+      class="w-[90%] h-[60px] sm:w-[300px]"
+      type="primary"
       >Login</p-button
     >
   </div>
