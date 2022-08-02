@@ -6,7 +6,12 @@ import Footer from "./components/layout/footer.vue";
 <template>
   <div>
     <Header />
-    <router-view />
+    <router-view v-slot="{ Component, route }">
+      <transition :name="`${route.meta.transitionName}`" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+    <!-- <router-view /> -->
     <Footer />
   </div>
 </template>

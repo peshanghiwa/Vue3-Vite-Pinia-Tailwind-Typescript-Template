@@ -84,15 +84,27 @@
   min-height: calc(100vh - 100px);
 }
 
-/* Vue Transition (Fade Down) */
+/* Vue Transitions */
 .fadedown-enter-active,
 .fadedown-leave-active {
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   transform: translateY(0px);
 }
 
 .fadedown-enter-from,
 .fadedown-leave-to {
   transform: translateY(-10px);
+  opacity: 0;
+}
+
+.fade-in-enter-active,
+.fade-in-leave-active {
+  transform: scale(1);
+  transition: all 0.3s ease;
+}
+
+.fade-in-enter-from,
+.fade-in-leave-to {
+  transform: scale(0.9);
   opacity: 0;
 }
