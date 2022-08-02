@@ -1,7 +1,7 @@
 import axiosInstance from "../plugins/axios";
 import useInfoStore from "../store/info";
 
-export default async () => {
+export const getAllCountries = async () => {
   const { countriesList, setCountries } = useInfoStore();
   if (countriesList.length > 0) return countriesList;
 

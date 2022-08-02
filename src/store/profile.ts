@@ -1,7 +1,7 @@
 import { Ref, ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { Name, Gender } from "../types/profile";
-import fetchGender from "../api/fetchGender";
+import { requestGender } from "../api/profileApi";
 
 export default defineStore("profile", () => {
   // State Properties
@@ -22,7 +22,7 @@ export default defineStore("profile", () => {
   };
 
   const fetchAndSetGender = async (newName: Name) => {
-    const newGender = await fetchGender(newName);
+    const newGender = await requestGender(newName);
     gender.value = newGender;
   };
 

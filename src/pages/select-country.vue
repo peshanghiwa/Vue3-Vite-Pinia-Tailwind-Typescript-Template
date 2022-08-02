@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, toRefs } from "vue";
 import { useRouter } from "vue-router";
-import fetchCountries from "../api/fetchCountries";
+import { getAllCountries } from "../api/countriesApi";
 import useInfoStore from "../store/info";
 import useProfileStore from "../store/profile";
 import useAuthStore from "../store/auth";
@@ -37,7 +37,7 @@ const proceed = () => {
 onMounted(async () => {
   try {
     loading.value = true;
-    const countries = await fetchCountries();
+    const countries = await getAllCountries();
     options.value = countries;
     loading.value = false;
   } catch (error) {

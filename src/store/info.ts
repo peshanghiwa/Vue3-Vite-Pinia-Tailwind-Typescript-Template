@@ -14,7 +14,6 @@ export default defineStore("info", () => {
   // Actions
   const setCountries = (value: Country[]) => (countries.value = value);
   const setCountry = (newCountry: Country) => {
-    console.log("value inside action", newCountry);
     country.value = newCountry;
   };
 
