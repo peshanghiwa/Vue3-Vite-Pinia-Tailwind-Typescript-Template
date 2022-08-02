@@ -10,18 +10,23 @@ const selectedCountryClone = selectedCountry.value;
 
 const data = reactive({
   country: null as Country,
+  loading: false,
 });
-const { country } = toRefs(data);
+const { country, loading } = toRefs(data);
 
 const onSetCountry = async (newCountry: string) => {
-  country.value = null;
+  loading.value = true;
   country.value = await getCountry(newCountry);
   setCountry(newCountry);
+  loading.value = false;
 };
 
 onMounted(async () => {
-  if (selectedCountry.value)
+  if (selectedCountry.value) {
+    loading.value = true;
     country.value = await getCountry(selectedCountry.value);
+    loading.value = false;
+  }
 });
 </script>
 
@@ -47,17 +52,17 @@ onMounted(async () => {
       <div
         class="w-[100%] md:w-[50%] h-[350px] rounded-lg border-[1px] border-black-900 flex justify-center items-center"
       >
-        <template v-if="country">
+        <template v-if="country && !loading">
           <span class="text-[100px]">
             {{ country.flag }}
           </span>
         </template>
-        <template v-else>
+        <template v-else-if="loading">
           <p-spinner size="lg" type="secondary" />
         </template>
       </div>
       <div class="w-[100%] md:w-[50%] flex flex-col gap-6">
-        <template v-if="country">
+        <template v-if="country && !loading">
           <h2 class="font-bold text-[25px]">{{ selectedCountry }}</h2>
           <div class="flex flex-col gap-5">
             <div class="w-full flex justify-between items-center">
@@ -86,7 +91,7 @@ onMounted(async () => {
             </div>
           </div>
         </template>
-        <template v-else>
+        <template v-else-if="loading">
           <p-spinner
             size="lg"
             type="secondary"
