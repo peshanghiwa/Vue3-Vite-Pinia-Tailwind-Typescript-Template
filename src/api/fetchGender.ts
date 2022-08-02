@@ -10,6 +10,5 @@ export default async (name: Name) => {
     `http://api.genderize.io/?name=${name}`
   );
   const gender = response.data.gender;
-  setGender(gender);
   return gender;
 };
