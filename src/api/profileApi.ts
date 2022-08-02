@@ -6,9 +6,9 @@ export const requestGender = async (name: Name) => {
   const { userGender, setGender } = useProfileStore();
   if (userGender) return userGender;
 
-  const response = await axiosInstance.get(
+  const { data } = await axiosInstance.get(
     `http://api.genderize.io/?name=${name}`
   );
-  const gender = response.data.gender;
+  const gender = data.gender;
   return gender;
 };

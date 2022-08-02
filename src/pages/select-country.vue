@@ -5,7 +5,7 @@ import { getAllCountries } from "../api/countriesApi";
 import useInfoStore from "../store/info";
 import useProfileStore from "../store/profile";
 import useAuthStore from "../store/auth";
-import { Country } from "../types/info";
+import { CountryRef } from "../types/info";
 
 const router = useRouter();
 const { setCountry, selectedCountry } = useInfoStore();
@@ -16,7 +16,7 @@ const data = reactive({
   placeholder: "Select country",
   country: null,
   inputInvalid: false,
-  options: [] as Country[],
+  options: [] as CountryRef[],
   loading: false,
 });
 const { country, options, loading, placeholder, inputInvalid } = toRefs(data);

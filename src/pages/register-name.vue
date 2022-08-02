@@ -35,6 +35,7 @@ const onLogin = async () => {
     <input
       v-model="name"
       :invalid="inputInvalid"
+      @keyup.enter="onLogin"
       class="input-primary | w-[90%] h-[60px] sm:w-[300px]"
       type="text"
       placeholder="Enter your name"

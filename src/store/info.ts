@@ -1,19 +1,19 @@
 import { Ref, ref, computed } from "vue";
 import { defineStore } from "pinia";
-import { Country } from "../types/info";
+import { CountryRef } from "../types/info";
 
 export default defineStore("info", () => {
   // State Properties
-  const country: Ref<Country> = ref(null);
-  const countries: Ref<Country[]> = ref([]);
+  const country: Ref<CountryRef> = ref(null);
+  const countries: Ref<CountryRef[]> = ref([]);
 
   // Getters
   const selectedCountry = computed(() => country.value);
   const countriesList = computed(() => countries.value);
 
   // Actions
-  const setCountries = (value: Country[]) => (countries.value = value);
-  const setCountry = (newCountry: Country) => {
+  const setCountries = (value: CountryRef[]) => (countries.value = value);
+  const setCountry = (newCountry: CountryRef) => {
     country.value = newCountry;
   };
 
