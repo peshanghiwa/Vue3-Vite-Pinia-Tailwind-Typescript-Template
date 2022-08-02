@@ -101,12 +101,12 @@ const onLogout = () => {
             <router-link
               to="/country-profile"
               class="block py-[15px] px-[70px] hover:bg-black-700 transiton-all duration-300 ease-in-out"
-              >Country Profile</router-link
-            >
+              >Country Profile
+            </router-link>
           </li>
           <li>
             <router-link
-              to="/select-country"
+              to="/university-list"
               class="block py-[15px] px-[70px] hover:bg-black-700 transiton-all duration-300 ease-in-out"
               >University List</router-link
             >
