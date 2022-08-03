@@ -1,6 +1,6 @@
 # Vue 3 + TypeScript + Vite + Pinia + Tailwind Template
 
-This template should help get you get a complete understanding of how vue 3 environment works alongside with typescript, it is structured with vue 3 best practices, and is built with vite.
+This template should help you get a complete understanding of how vue 3 environment works alongside with typescript, it is structured with vue 3 best practices, and is built with vite.
 
 The template is handling/using the followings:
 
