@@ -8,19 +8,19 @@ The template is handling/using the followings:
 
 - Folder Structuring (Inspired by Nuxt.js).
 
-- Reusable utility components that can be exported as modules or reused as a components.
+- Reusable utility components that can be exported as modules or reused as components.
 
 - Layout handlement (inspired by Nuxt.js).
 
 - Pinia Store
 
-- Vue 4 router (including auth guards and redirects)
+- Vue router version 4 (including auth guards and redirects)
 
-- Tailwind CSS (Applying best practices and custom configurations)
+- Tailwind CSS (With custom configurations)
 
-- API requests handlement, error handling and integration (Using Axios)
+- API requests, error handling and integrations (Using Axios)
 
-- Tests
+- Tests (Using vitest)
 
 - Defining Types (For our own modules and 3rd party libraries that do not support typescript)
 
