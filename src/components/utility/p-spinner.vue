@@ -38,8 +38,7 @@ const props = defineProps({
     <div
       style="border-top-color: transparent"
       :class="['spinner', `spinner-${size}`, `spinner-${type}`]"
-    ></div>
-
+    />
     <span class="sr-only">Loading...</span>
   </div>
 </template>
