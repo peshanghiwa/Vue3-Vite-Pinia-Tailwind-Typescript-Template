@@ -26,7 +26,7 @@ The template is handling/using the followings:
 
 - TypeScript Configuration
 
-- 3rd party plugins
+- plugins
 
 - Transitions (On the route components and layout components)
 
