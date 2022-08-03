@@ -84,7 +84,7 @@ const decrementPage = () => mutableCurrentPage.value--;
 </script>
 
 <template>
-  <div class="flex flex-col items-center">
+  <div class="table-component | flex flex-col items-center">
     <table
       class="bg-black-100 w-full rounded border-[1px] border-black-900 flex flex-col"
     >
@@ -99,7 +99,7 @@ const decrementPage = () => mutableCurrentPage.value--;
       </tr>
       <tr
         v-if="loading"
-        class="text-center h-[60px] border-b-[1px] border-b-black-900 hover:bg-black-200 w-full flex items-center"
+        class="table-lodaing | text-center h-[60px] border-b-[1px] border-b-black-900 hover:bg-black-200 w-full flex items-center"
       >
         <td class="block w-full">
           <p-spinner size="lg" type="secondary" />
@@ -117,7 +117,7 @@ const decrementPage = () => mutableCurrentPage.value--;
         v-else-if="tableColumnValues.length > 0"
         v-for="(columns, index) in tableColumnValues"
         :key="index"
-        class="text-center h-[60px] border-b-[1px] border-b-black-900 hover:bg-black-200 w-full flex items-center"
+        class="data-columns | text-center h-[60px] border-b-[1px] border-b-black-900 hover:bg-black-200 w-full flex items-center"
       >
         <td
           v-for="(column, index) in columns"
