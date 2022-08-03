@@ -23,18 +23,6 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  width: {
-    type: String,
-    default: "300px",
-  },
-  height: {
-    type: String,
-    default: "60px",
-  },
-  classes: {
-    type: Array,
-    default: [],
-  },
 });
 </script>
 
@@ -44,7 +32,12 @@ defineProps({
     :disabled="disabled || loading"
     @click="emit('onClick')"
   >
-    <p-spinner v-if="loading" size="md" :type="type" />
+    <p-spinner
+      class="loading-component"
+      v-if="loading"
+      size="md"
+      :type="type"
+    />
     <slot v-else />
   </button>
 </template>
