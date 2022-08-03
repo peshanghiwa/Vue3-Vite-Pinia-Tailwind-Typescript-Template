@@ -3,6 +3,8 @@
 import { toRefs, PropType, watch, ref } from "vue";
 import { Columns, DataSource } from "../../types/p-table";
 import { computed } from "@vue/reactivity";
+import useInfoStore from "../../store/info";
+import { storeToRefs } from "pinia";
 
 /* --- Props --- */
 const props = defineProps({
@@ -40,6 +42,9 @@ const props = defineProps({
   },
 });
 
+/* --- Stores --- */
+const { selectedCountry } = storeToRefs(useInfoStore());
+
 /* --- States --- */
 const { currentPage, columns, dataSource, itemsPerPage } = toRefs(props);
 const mutableCurrentPage = ref(currentPage.value);
@@ -76,6 +81,10 @@ const tableColumnValues = computed(() => {
   const start = (mutableCurrentPage.value - 1) * itemsPerPage.value;
   const end = start + itemsPerPage.value;
   return allTableColumnValues.slice(start, end);
+});
+
+watch(selectedCountry, () => {
+  mutableCurrentPage.value = 1;
 });
 
 /* --- Methods --- */

@@ -30,13 +30,15 @@ const data = reactive({
       id: "website",
     },
   ],
+  currentPage: 1,
 });
-const { columns } = toRefs(data);
+const { columns, currentPage } = toRefs(data);
 
 /* --- Methods --- */
 const onSetCountry = async (newCountry: string) => {
   await fetchUniversities(newCountry);
   setCountry(newCountry);
+  // currentPage.value = 1;
 };
 
 /* --- hooks --- */
@@ -69,7 +71,6 @@ onMounted(async () => {
         :dataSource="dataSource ? dataSource : []"
         :loading="loading"
         :itemsPerPage="10"
-        :currentPage="1"
         :error="error ? true : false"
       />
     </div>
