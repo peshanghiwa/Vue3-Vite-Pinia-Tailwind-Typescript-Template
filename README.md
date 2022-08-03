@@ -1,16 +1,43 @@
-# Vue 3 + TypeScript + Vite
+# Vue 3 + TypeScript + Vite + Pinia + Tailwind Template
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This template should help get you get a complete understanding of how vue 3 environment works alongside with typescript, it is structured with vue 3 best practices, and is built with vite.
 
-## Recommended IDE Setup
+The template is handling/using the followings:
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+- Vue 3 Script Setup
 
-## Type Support For `.vue` Imports in TS
+- Folder Structuring (Inspired by Nuxt.js).
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+- Reusable utility components that can be exported as modules or reused as a components.
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+- Layout handlement (inspired by Nuxt.js).
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+- Pinia Store
+
+- Vue 4 router (including auth guards and redirects)
+
+- Tailwind CSS (Applying best practices and custom configurations)
+
+- API requests handlement, error handling and integration (Using Axios)
+
+- Tests
+
+- Defining Types (For our own modules and 3rd party libraries that do not support typescript)
+
+- TypeScript Configuration
+
+- 3rd party plugins
+
+- Transitions (On the route components and layout components)
+
+## Run the project
+
+```bash
+$ npm install
+$ npm run dev
+
+// To run the tests
+$ npm run test
+```
+
+**_Important: the project is using some 3rd party APIs to fetch data, you may encounter cors-policy issue during development so i do recommend using any cors unblocking chrome extensions like [CORS Unblock](https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino?hl=en) to prevent the issue._**
